@@ -16,16 +16,15 @@ $(function () {
     describe('RSS Feeds', function () {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page?
+         * empty.
          */
         it('are defined', function () {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
+        /* This test makes sure that all feeds have a url which is not empty
+         */
         it('have a URL which is not empty', function () {
             allFeeds.forEach(function (feed) {
                 expect(feed.url).toBeDefined();
@@ -33,6 +32,8 @@ $(function () {
             });
         });
 
+        /* This test makes sure that all feeds have a name which is not empty
+         */
         it('have a name which is not empty', function () {
             allFeeds.forEach(function (feed) {
                 expect(feed.name).toBeDefined();
@@ -41,16 +42,20 @@ $(function () {
         });
     });
 
-
+    /* This suite is all about the menus show and hide functionality.
+     */
     describe('The menu', function () {
 
+        /* This test makes sure that the menu is hidden by default.
+         */
         it('is hidden by default', function () {
             var $body = $('body');
 
             expect($body.hasClass('menu-hidden')).toBe(true);
         });
 
-
+        /* This test makes sure that a click on the menu icon toggles the menus visibility
+         */
         it('changes visibility on menu icon click', function () {
             var $body = $('body'),
                 menuIcon = $('.menu-icon-link');
@@ -63,9 +68,11 @@ $(function () {
         });
     });
 
-
+    /* This suite is all about the initial feed entries.
+     */
     describe('Initial Entries', function () {
 
+        // use done callback of jasmine to test async functions
         beforeEach(function (done) {
             loadFeed(0, function () {
                 done();
@@ -73,16 +80,21 @@ $(function () {
 
         });
 
-        it('are available', function (done) {
+        /* This test makes sure that initial feeds are available after loading the feed
+         */
+        it('are available', function () {
             expect($('.feed .entry').length).toBeGreaterThan(0);
-            done();
         });
     });
 
+    /* This suite is all about selecting a new feed.
+     */
     describe('New Feed Selection', function () {
 
+        // saving initial content state
         var oldContent;
 
+        // use done callback of jasmine to test async functions
         beforeEach(function (done) {
             loadFeed(0, function () {
                 oldContent = $('.feed').html();
@@ -90,9 +102,10 @@ $(function () {
             });
         });
 
-        it('has changed content', function (done) {
+        /* This test makes sure that the content has changed after loading a new feed
+         */
+        it('has changed content', function () {
             expect($('.feed').html()).not.toBe(oldContent);
-            done();
         });
     });
 
